@@ -1,6 +1,7 @@
 const express = require('express');
-constapp = express();
+const app = express();
 const PORT = process.env.PORT || 3000;
+
 function calcul(a, b) {
   return a + b;
 }
@@ -10,12 +11,11 @@ app.get('/', (req, res) => {
 });
 
 // Sonde utilisee par Kubernetes (readiness / liveness)
-app.get('/health', (req, res) => res.status(200).send('OK'));
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
-// On ne demarre le serveur que si le fichier est lance directement
-// (evite de bloquer les tests Jest qui importent le module).
-if (require.main === module) {
-  app.listen(PORT, () => console.log('Serveur demarre sur le port ' + PORT));
-}
+// Demarrage force du serveur pour Kubernetes
+app.listen(PORT, () => console.log('Serveur demarre sur le port ' + PORT));
 
 module.exports = { calcul, app };
