@@ -5,7 +5,9 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "express": "4.17.1"
+    "docx": "*",
+    "express": "^4.21.2",
+    "pptxgenjs": "*"
   },
   "devDependencies": {
     "jest": "^29.0.0"
